@@ -15,7 +15,7 @@ def hello_world():
 @app.route('/jogoteca')
 def jogoteca():
     jogo1 = Jogo('Daniel', 'Comédia', 'Vida Real')
-    jogo2 = Jogo('Rafael', 'Pornô', 'Vida Real')
+    jogo2 = Jogo('Rafael', 'Comédia', 'Vida Real')
     jogo3 = Jogo('Elden Ring', 'RPG', 'Xbox, Playstation, PC')
     lista_jogos = [jogo1, jogo2, jogo3]
     return render_template('lista.html', titulo='Games', jogos=lista_jogos)
