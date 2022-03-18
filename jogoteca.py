@@ -1,6 +1,8 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect
+
 
 app = Flask(__name__)
+lista = list()
 
 class Jogo():
     def __init__(self, nome, categoria, console):
@@ -12,20 +14,22 @@ class Jogo():
 def hello_world():
     return 'Hello World!'
 
-@app.route('/jogoteca')
+@app.route('/')
 def jogoteca():
-    jogo1 = Jogo('Daniel', 'Comédia', 'Vida Real')
-    jogo2 = Jogo('Rafael', 'Comédia', 'Vida Real')
-    jogo3 = Jogo('Elden Ring', 'RPG', 'Xbox, Playstation, PC')
-    lista_jogos = [jogo1, jogo2, jogo3]
-    return render_template('lista.html', titulo='Games', jogos=lista_jogos)
+    return render_template('lista.html', titulo='Games', jogos=lista)
 
 @app.route('/novo')
 def novo_jogo():
     return render_template('novo.html', titulo='Novo Jogo')
 
-@app.route('/criar')
+@app.route('/criar', methods=['POST',])
 def criar():
     nome = request.form['nome']
+    categoria = request.form['categoria']
+    console = request.form['console']
+    jogo = Jogo(nome, categoria, console)
+    lista.append(jogo)
+    print(request.form)
+    return redirect('/')
 
-app.run()
+app.run(debug=True)
